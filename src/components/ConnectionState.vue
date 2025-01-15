@@ -1,11 +1,11 @@
 <template>
-  <!-- <p>State: {{ connected }}</p>
+  <p>State: {{ connected }}</p>
   <div>
     <h2>Connected clients</h2>
-    <ul>
+    <!-- <ul>
       <li v-for="client in clients" :key="client.signal">{{ client.signal }}</li>
-    </ul>
-  </div> -->
+    </ul>-->
+  </div> 
 </template>
 
 <script>
@@ -22,9 +22,9 @@ export default {
   },
 
   computed: {
-  //   connected() {
-  //     return state.connected;
-  //   },
+    connected() {
+      return state.connected;
+    },
   //   clients() {
   //     const diff = this.compareArrays(this.clients, updatedClients);
   //     const updatedClients = [...this.clients, ...diff.added]
