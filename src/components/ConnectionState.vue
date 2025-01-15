@@ -17,23 +17,22 @@ export default {
 
   data() {
     return {
+      clients: [],
       notes: ['A4', 'B4', 'C4']
     }
   },
 
-  computed: {
-    connected() {
-      return state.connected;
-    },
-    clients() {
-      const diff = this.compareArrays(this.clients, updatedClients);
-      const updatedClients = [...this.clients, ...diff.added]
+  watch: {
+    clients(newClients) {
+      console.log("clients", newClients)
+      const diff = this.compareArrays(this.clients, newClients);
+      this.clients = [...this.clients, ...diff.added]
 
       // still need to DELETE clients who are no longer with us: diff.removed
 
       // here you can do tone.js stuff
-      for (var i=0; i<updatedClients.length; i++) {
-        var c = updatedClients[i];
+      for (var i=0; i<this.clients.length; i++) {
+        var c = this.clients[i];
         // c.signal, c.ip, c.id
 
         if (!c.synth) {
@@ -45,10 +44,13 @@ export default {
         }
         // set some other property of the synth tone based on c.signal?
         c.synth.Destination.volume.value = c.signal;
-
-        return updatedClients;
-      }
     }
+  },
+
+  computed: {
+    connected() {
+      return this.$store.state.connected;
+    },
   },
 
   methods: {
