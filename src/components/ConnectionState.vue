@@ -28,6 +28,8 @@ export default {
     clients(newClients) {
       console.log("clients", newClients)
       const idx = newClients.indexOf('No clients found');
+      console.log("idx", idx);
+      console.log("newClients", newClients)
       newClients.splice(idx, 1);
       
       const diff = this.compareArrays(this.clients, newClients);
