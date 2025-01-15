@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { state } from "@/socket";
+// import { state } from "@/socket";
 import * as Tone from "tone";
 
 export default {
