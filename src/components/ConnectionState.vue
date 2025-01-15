@@ -25,9 +25,9 @@ export default {
     connected() {
       return state.connected;
     },
-  //   clients() {
-  //     const diff = this.compareArrays(this.clients, updatedClients);
-  //     const updatedClients = [...this.clients, ...diff.added]
+    clients() {
+      const diff = this.compareArrays(this.clients, updatedClients);
+      const updatedClients = [...this.clients, ...diff.added]
 
   //     // still need to DELETE clients who are no longer with us: diff.removed
 
@@ -47,7 +47,7 @@ export default {
   //       c.synth.Destination.volume.value = c.signal;
 
   //       return updatedClients;
-  //   }
+    }
   },
 
   methods: {
