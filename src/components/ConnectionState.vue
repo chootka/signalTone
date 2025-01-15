@@ -1,11 +1,11 @@
 <template>
-  <p>State: {{ connected }}</p>
+  <!-- <p>State: {{ connected }}</p>
   <div>
     <h2>Connected clients</h2>
     <ul>
       <li v-for="client in clients" :key="client.signal">{{ client.signal }}</li>
     </ul>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -22,32 +22,32 @@ export default {
   },
 
   computed: {
-    connected() {
-      return state.connected;
-    },
-    clients() {
-      const diff = this.compareArrays(this.clients, updatedClients);
-      const updatedClients = [...this.clients, ...diff.added]
+  //   connected() {
+  //     return state.connected;
+  //   },
+  //   clients() {
+  //     const diff = this.compareArrays(this.clients, updatedClients);
+  //     const updatedClients = [...this.clients, ...diff.added]
 
-      // still need to DELETE clients who are no longer with us: diff.removed
+  //     // still need to DELETE clients who are no longer with us: diff.removed
 
-      // here you can do tone.js stuff
-      for (var i=0; i<updatedClients.length; i++) {
-        var c = updatedClients[i];
-        // c.signal, c.ip, c.id
+  //     // here you can do tone.js stuff
+  //     for (var i=0; i<updatedClients.length; i++) {
+  //       var c = updatedClients[i];
+  //       // c.signal, c.ip, c.id
 
-        if (!c.synth) {
-          const note = this.notes[ Math.floor(Math.random(this.notes.length)) ]
-          const synth = new Tone.Synth().toDestination();
-          synth.triggerAttack(note); //starting pitch C4
-          // add to client object
-          c.synth = synth;
-        }
-        // set some other property of the synth tone based on c.signal?
-        c.synth.Destination.volume.value = c.signal;
+  //       if (!c.synth) {
+  //         const note = this.notes[ Math.floor(Math.random(this.notes.length)) ]
+  //         const synth = new Tone.Synth().toDestination();
+  //         synth.triggerAttack(note); //starting pitch C4
+  //         // add to client object
+  //         c.synth = synth;
+  //       }
+  //       // set some other property of the synth tone based on c.signal?
+  //       c.synth.Destination.volume.value = c.signal;
 
-        return updatedClients;
-    }
+  //       return updatedClients;
+  //   }
   },
 
   methods: {
