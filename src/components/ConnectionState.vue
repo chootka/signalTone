@@ -79,12 +79,12 @@ export default {
   },
 
   methods: {
-    compareArrays(oldArray, newArray) {
-      const oldIPs = new Set(oldArray.map(item => item.ip))
-      const newIPs = new Set(newArray.map(item => item.ip))
+    compareArrays: function (oldArray, newArray) {
+      const oldIPs = new Set(oldArray.map(item => item.ip));
+      const newIPs = new Set(newArray.map(item => item.ip));
 
-      const added = newArray.filter(item => !oldIPs.has(item.ip))
-      const removed = oldArray.filter(item => !newIPs.has(item.ip))
+      const added = newArray.filter(item => !oldIPs.has(item.ip));
+      const removed = oldArray.filter(item => !newIPs.has(item.ip));
 
       return {
         added,
