@@ -44,6 +44,7 @@ export default {
         }
         // set some other property of the synth tone based on c.signal?
         c.synth.Destination.volume.value = c.signal;
+      }
     }
   },
 
