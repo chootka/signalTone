@@ -60,8 +60,8 @@ export default {
   },
 
   methods: {
-    async startAudio() {
-      const toneStart = await Tone.start();
+    startAudio() {
+      Tone.start();
       this.toneStarted = true;
       console.log("tone started");
       this.testSynth = new Tone.Synth().toDestination();
