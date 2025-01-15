@@ -66,15 +66,18 @@ export default {
 
   methods: {
     async startAudio() {
+      if (!this.toneStarted) {
       await Tone.start();
 
       //await Tone.resume();
       this.toneStarted = true;
       console.log("tone started");
-
+      }
+      if (!this.testSynth) {
       this.testSynth = new Tone.Synth().toDestination();
       this.testSynth.triggerAttack('A4', Tone.now());
-      c.synth.Destination.volume.value = -10;
+      }
+      //c.synth.Destination.volume.value = -10;
     },
     compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
