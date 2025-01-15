@@ -15,39 +15,11 @@ import * as Tone from "tone";
 export default {
   name: "ConnectionState",
 
-  data: function() {
+  data() {
     return {
       notes: ['A4', 'B4', 'C4']
     }
   },
-
-  // watch: {
-  //   // whenever clients connect, this function will run
-  //   clients(updatedClients) {
-  //     console.log('client list changed', updatedClients)
-
-  //     const diff = this.compareArrays(this.clients, updatedClients);
-  //     this.clients = [...this.clients, ...diff.added]
-
-  //     // still need to DELETE clients who are no longer with us: diff.removed
-
-  //     // here you can do tone.js stuff
-  //     for (var i=0; i<this.clients.length; i++) {
-  //       var c = this.clients[i];
-  //       // c.signal, c.ip, c.id
-
-  //       if (!c.synth) {
-  //         const note = this.notes[ Math.floor(Math.random(this.notes.length)) ]
-  //         const synth = new Tone.Synth().toDestination();
-  //         synth.triggerAttack(note); //starting pitch C4
-  //         // add to client object
-  //         c.synth = synth;
-  //       }
-  //       // set some other property of the synth tone based on c.signal?
-  //       c.synth.Destination.volume.value = c.signal;
-  //     }
-  //   }
-  // },
 
   computed: {
     connected() {
@@ -79,7 +51,7 @@ export default {
   },
 
   methods: {
-    compareArrays: function (oldArray, newArray) {
+    compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
       const newIPs = new Set(newArray.map(item => item.ip));
 
