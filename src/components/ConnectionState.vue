@@ -1,15 +1,15 @@
 <template>
   <p>State: {{ connected }}</p>
   <div>
+    <button @click="startAudio()">Start Audio</button>
     <h2>Connected clients</h2>
     <ul>
-      <li v-for="client in clients" :key="client.signal">{{ client.signal }}</li>
+      <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
     </ul>
   </div> 
 </template>
 
 <script>
-// import { state } from "@/socket";
 import * as Tone from "tone";
 
 export default {
@@ -17,6 +17,8 @@ export default {
 
   data() {
     return {
+      testSynth: null,
+      toneStarted: false,
       clients: [],
       notes: ['A4', 'B4', 'C4']
     }
@@ -34,16 +36,19 @@ export default {
       for (var i=0; i<this.clients.length; i++) {
         var c = this.clients[i];
         // c.signal, c.ip, c.id
+        console.log("got a client signal", c.signal)
 
         if (!c.synth) {
           const note = this.notes[ Math.floor(Math.random(this.notes.length)) ]
           const synth = new Tone.Synth().toDestination();
-          synth.triggerAttack(note); //starting pitch C4
+          if (this.toneStarted) synth.triggerAttack(note); //starting pitch C4
           // add to client object
           c.synth = synth;
+          console.log("client has no synth, creating synth", synth);
         }
         // set some other property of the synth tone based on c.signal?
-        c.synth.Destination.volume.value = c.signal;
+        c.synth.Destination.volume.value = Number(c.signal);
+        console.log("settingn client volume based on signal", c.signal);
       }
     }
   },
@@ -55,6 +60,14 @@ export default {
   },
 
   methods: {
+    startAudio() {
+      await Tone.start();
+      this.toneStarted = true;
+      console.log("tone started");
+      this.testSynth = new Tone.Synth().toDestination();
+      this.testSynth.triggerAttack('A4');
+      c.synth.Destination.volume.value = -10;
+    },
     compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
       const newIPs = new Set(newArray.map(item => item.ip));

@@ -1,11 +1,5 @@
-// import { reactive } from "vue";
 import store from "./store"
 import { io } from "socket.io-client";
-
-// export const state = reactive({
-//   connected: false,
-//   clients: [],
-// });
 
 // "undefined" means the URL will be computed from the `window.location` object
 const URL = "http://jelly.local:5000";
@@ -18,18 +12,15 @@ socket.on("connect_error", (err) => {
 
 socket.on("connect", () => {
   console.log("connected");
-  //state.connected = true;
   store.dispatch("updateConnected", true);
 });
 
 socket.on("data", (d) => {
   console.log("data received! Currently connected clients", d.clients);
-  // state.clients = d.clients;
   store.dispatch('updateClients', d.clients)
 });
 
 socket.on("disconnect", () => {
   console.log("disconnected");
-  // state.connected = false;
   store.dispatch("updateConnected", false);
 });
