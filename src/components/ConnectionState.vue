@@ -19,7 +19,7 @@ export default {
     return {
       notes: ['A4', 'B4', 'C4']
     }
-  }
+  },
 
   // watch: {
   //   // whenever clients connect, this function will run
