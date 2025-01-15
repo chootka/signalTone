@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 
 export const state = reactive({
   connected: false,
+  clients: [],
   fooEvents: [],
   barEvents: []
 });
@@ -17,14 +18,17 @@ socket.on("connect_error", (err) => {
 });
 
 socket.on("connect", () => {
+  console.log("connected");
   state.connected = true;
 });
 
 socket.on("data", (d) => {
-  console.log("data received!", d);
+  console.log("data received! Currently connected clients", d.clients);
+  state.clients = d.clients;
 });
 
 socket.on("disconnect", () => {
+  console.log("disconnected");
   state.connected = false;
 });
 
