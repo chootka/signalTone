@@ -11,6 +11,7 @@
 
 <script>
 // import * as Tone from "tone";
+import { Synth } from "tone";
 
 export default {
   name: "ConnectionState",
@@ -66,6 +67,7 @@ export default {
 
   methods: {
     async startAudio() {
+      this.testSynth.triggerAttack("A4");
       // try {
       //   console.log('starting audio')
       //   await Tone.start();
@@ -85,6 +87,7 @@ export default {
       // } catch (error) {
       //   console.log(error);
       // }
+      
     },
     compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
@@ -99,6 +102,9 @@ export default {
         hasChanged: added.length > 0 || removed.length > 0
       }
     }
-  }
+  },
+  created() {
+    this.testSynth = new Synth().toDestination();
+  },
 }
 </script>
