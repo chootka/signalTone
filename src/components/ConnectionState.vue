@@ -68,6 +68,8 @@ export default {
 
   methods: {
     start() {
+      Tone.start();
+      // Tone.context.resume();
       this.noise = new Tone.Noise("pink");
       this.noise.start().toMaster();
     },
