@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Tone from "tone";
+import * as Tone from "tone";
 
 export default {
   name: "ConnectionState",
