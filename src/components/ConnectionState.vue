@@ -1,4 +1,6 @@
 <template>
+      <pre>{{ $data }}</pre>
+
   <p>State: {{ connected }}</p>
   <div>
     <button @click="start()">start</button>
@@ -86,7 +88,7 @@ export default {
       debugger;
       // this.noise = new Tone.Noise("pink").toDestination();
       // this.noise.start();
-    }).catch((err) => {
+    }.bind(this)).catch((err) => {
       console.error("Error starting Tone.js:", err);
    });
   },
