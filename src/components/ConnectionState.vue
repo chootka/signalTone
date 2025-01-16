@@ -74,17 +74,16 @@ export default {
         // //await Tone.resume();
         this.toneStarted = true;
         console.log("tone started");
-        console.log("tone started for sure");
 
-        // if (this.testSynth) {
-        //   this.testSynth = new Tone.Synth().toDestination();
-        //   console.log('prepping something')
-        //   this.testSynth.triggerAttack('A4', Tone.now());
-        //   console.log('played something')
-        //   //c.synth.Destination.volume.value = -10;
-        // } else {
-        //   console.log('nada ')
-        // }
+        if (this.testSynth) {
+          this.testSynth = new Tone.Synth().toDestination();
+          console.log('prepping something')
+          this.testSynth.triggerAttack('A4', Tone.now());
+          console.log('played something')
+          //c.synth.Destination.volume.value = -10;
+        } else {
+          console.log('nada ')
+        }
       } catch (error) {
         console.log(error);
       }
