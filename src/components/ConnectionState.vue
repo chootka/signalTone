@@ -44,17 +44,17 @@ export default {
         // c.signal, c.ip, c.id
         console.log("got a client signal", c.signal)
 
-        if (!c.synth) {
-          const note = this.notes[Math.floor(Math.random(this.notes.length))]
-          const synth = new Tone.Synth().toDestination();
-          if (this.toneStarted) synth.triggerAttack(note); //starting pitch C4
-          // add to client object
-          c.synth = synth;
-          console.log("client has no synth, creating synth", synth);
-        }
-        // set some other property of the synth tone based on c.signal?
-        c.synth.Destination.volume.value = Number(c.signal);
-        console.log("setting client volume based on signal", c.signal);
+        // if (!c.synth) {
+        //   const note = this.notes[Math.floor(Math.random(this.notes.length))]
+        //   const synth = new Tone.Synth().toDestination();
+        //   if (this.toneStarted) synth.triggerAttack(note); //starting pitch C4
+        //   // add to client object
+        //   c.synth = synth;
+        //   console.log("client has no synth, creating synth", synth);
+        // }
+        // // set some other property of the synth tone based on c.signal?
+        // c.synth.Destination.volume.value = Number(c.signal);
+        // console.log("setting client volume based on signal", c.signal);
       }
     }
   },
