@@ -1,7 +1,7 @@
 import store from "./store"
 import { io } from "socket.io-client";
 
-const URL = "http://kd2lfq.local:5000";
+const URL = "http://jelly.local:5000";
 
 export const socket = io(URL);
 
