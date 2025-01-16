@@ -75,15 +75,14 @@ export default {
         this.toneStarted = true;
         console.log("tone started");
 
-        if (this.testSynth) {
+        if (!this.testSynth) {
           this.testSynth = new Tone.Synth().toDestination();
-          console.log('prepping something')
-          this.testSynth.triggerAttack('A4', Tone.now());
-          console.log('played something')
-          //c.synth.Destination.volume.value = -10;
-        } else {
-          console.log('nada ')
         }
+
+        this.testSynth.triggerAttack('A4', Tone.now());
+        console.log('played something')
+        //this.testSynth.Destination.volume.value = -10;
+        
       } catch (error) {
         console.log(error);
       }
