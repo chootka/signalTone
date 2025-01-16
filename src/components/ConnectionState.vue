@@ -69,9 +69,8 @@ export default {
     async startAudio() {
       try {
         console.log('starting audio')
-        await Tone.resume();
+        await Tone.start();
 
-        // //await Tone.resume();
         this.toneStarted = true;
         console.log("tone started");
 
