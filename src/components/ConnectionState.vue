@@ -80,11 +80,12 @@ export default {
 
     start() {
       console.log('start');
-      debugger;
+      
       Tone.start().then(() => {
       console.log("Audio context started");
-      this.noise = new Tone.Noise("pink").toDestination();
-      this.noise.start();
+      debugger;
+      // this.noise = new Tone.Noise("pink").toDestination();
+      // this.noise.start();
     }).catch((err) => {
       console.error("Error starting Tone.js:", err);
    });
