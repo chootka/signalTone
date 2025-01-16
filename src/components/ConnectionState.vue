@@ -125,7 +125,7 @@ export default {
     }
   },
   created() {
-    this.synth = new Tone.FMSynth().toDestination();
+    //this.synth = new Tone.FMSynth().toDestination();
   },
 }
 </script>
