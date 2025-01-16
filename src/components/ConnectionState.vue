@@ -16,7 +16,6 @@ export default {
   name: "ConnectionState",
 
   data() {
-
     return {
       testSynth: null,
       toneStarted: false,
@@ -85,7 +84,7 @@ export default {
 
       // } catch (error) {
       //   console.log(error);
-      }
+      // }
     },
     compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
