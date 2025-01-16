@@ -98,7 +98,8 @@ export default {
       .then(function () {
         debugger;
         console.log("Audio context started");
-        this.synth = new Tone.Synth().toDestination(); // Explicitly bound to the Vue component
+        this.synth = new Tone.Synth();
+        this.synth.toDestination(); // Explicitly bound to the Vue component
         console.log("Synth initialized", this.synth);
       }.bind(this))
       .catch(function (err) {
