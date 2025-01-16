@@ -1,7 +1,7 @@
 <template>
   <p>State: {{ connected }}</p>
   <div>
-    <!-- <button @click="startAudio()">Start Audio</button> -->
+    <button @click="startAudio()">Start Audio</button>
     <h2>Connected clients</h2>
     <ul>
       <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
