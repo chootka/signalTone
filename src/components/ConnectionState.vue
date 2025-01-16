@@ -80,17 +80,28 @@ export default {
     //   this.noise.stop();
     // },
 
-    start() {
-      console.log('start');
+  //   start() {
+  //     console.log('start');
       
-      Tone.start().then(() => {
-      console.log("Audio context started");
-      debugger;
-      // this.noise = new Tone.Noise("pink").toDestination();
-      // this.noise.start();
-    }.bind(this)).catch((err) => {
-      console.error("Error starting Tone.js:", err);
-   });
+  //     Tone.start().then(() => {
+  //     console.log("Audio context started");
+  //     debugger;
+  //     // this.noise = new Tone.Noise("pink").toDestination();
+  //     // this.noise.start();
+  //   }).catch((err) => {
+  //     console.error("Error starting Tone.js:", err);
+  //  });
+
+  start() {
+    Tone.start()
+      .then(function () {
+        console.log("Audio context started");
+        this.synth = new Tone.Synth().toDestination(); // Explicitly bound to the Vue component
+        console.log("Synth initialized", this.synth);
+      }.bind(this))
+      .catch(function (err) {
+        console.error("Error starting Tone.js:", err);
+      });
   },
 
 
