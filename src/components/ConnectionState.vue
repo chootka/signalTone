@@ -80,7 +80,7 @@ export default {
 
     start() {
       console.log('start');
-      //debugger;
+      debugger;
       Tone.start().then(() => {
       console.log("Audio context started");
       this.noise = new Tone.Noise("pink").toDestination();
