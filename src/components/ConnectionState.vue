@@ -67,15 +67,28 @@ export default {
   },
 
   methods: {
+    // start() {
+    //   Tone.start();
+    //   // Tone.context.resume();
+    //   this.noise = new Tone.Noise("pink");
+    //   //this.noise.start().toMaster();
+    //   this.noise.start().toDestination();
+    // },
+    // stop() {
+    //   this.noise.stop();
+    // },
+
     start() {
-      Tone.start();
-      // Tone.context.resume();
-      this.noise = new Tone.Noise("pink");
-      this.noise.start().toMaster();
-    },
-    stop() {
-      this.noise.stop();
-    },
+      Tone.start().then(() => {
+      console.log("Audio context started");
+      this.noise = new Tone.Noise("pink").toDestination();
+      this.noise.start();
+    }).catch((err) => {
+      console.error("Error starting Tone.js:", err);
+   });
+  },
+
+
     // async startAudio() {
     //   try {
     //     console.log('starting audio')
