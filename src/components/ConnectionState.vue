@@ -25,39 +25,39 @@ export default {
     }
   },
 
-  watch: {
-    clients(newClients) {
-      console.log("clients", newClients)
-      const idx = newClients.indexOf('No clients found');
-      console.log("idx", idx);
-      console.log("newClients", newClients)
-      newClients.splice(idx, 1);
+  // watch: {
+  //   clients(newClients) {
+  //     console.log("clients", newClients)
+  //     const idx = newClients.indexOf('No clients found');
+  //     console.log("idx", idx);
+  //     console.log("newClients", newClients)
+  //     newClients.splice(idx, 1);
 
-      const diff = this.compareArrays(this.clients, newClients);
-      this.clients = [...this.clients, ...diff.added]
+  //     const diff = this.compareArrays(this.clients, newClients);
+  //     this.clients = [...this.clients, ...diff.added]
 
-      // still need to DELETE clients who are no longer with us: diff.removed
+  //     // still need to DELETE clients who are no longer with us: diff.removed
 
-      // here you can do tone.js stuff
-      for (var i = 0; i < this.clients.length; i++) {
-        var c = this.clients[i];
-        // c.signal, c.ip, c.id
-        console.log("got a client signal", c.signal)
+  //     // here you can do tone.js stuff
+  //     for (var i = 0; i < this.clients.length; i++) {
+  //       var c = this.clients[i];
+  //       // c.signal, c.ip, c.id
+  //       console.log("got a client signal", c.signal)
 
-        // if (!c.synth) {
-        //   const note = this.notes[Math.floor(Math.random(this.notes.length))]
-        //   const synth = new Tone.Synth().toDestination();
-        //   if (this.toneStarted) synth.triggerAttack(note); //starting pitch C4
-        //   // add to client object
-        //   c.synth = synth;
-        //   console.log("client has no synth, creating synth", synth);
-        // }
-        // // set some other property of the synth tone based on c.signal?
-        // c.synth.Destination.volume.value = Number(c.signal);
-        // console.log("setting client volume based on signal", c.signal);
-      }
-    }
-  },
+  //       // if (!c.synth) {
+  //       //   const note = this.notes[Math.floor(Math.random(this.notes.length))]
+  //       //   const synth = new Tone.Synth().toDestination();
+  //       //   if (this.toneStarted) synth.triggerAttack(note); //starting pitch C4
+  //       //   // add to client object
+  //       //   c.synth = synth;
+  //       //   console.log("client has no synth, creating synth", synth);
+  //       // }
+  //       // // set some other property of the synth tone based on c.signal?
+  //       // c.synth.Destination.volume.value = Number(c.signal);
+  //       // console.log("setting client volume based on signal", c.signal);
+  //     }
+  //   }
+  // },
 
   computed: {
     connected() {
