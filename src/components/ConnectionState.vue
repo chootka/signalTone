@@ -78,8 +78,8 @@ export default {
           this.testSynth = new Tone.Synth().toDestination();
         }
 
-        this.testSynth.triggerAttack('A4', Tone.now());
-        //this.testSynth.Destination.volume.value = -10;
+        this.testSynth.triggerAttackRelease('C4', '8n');
+        // this.testSynth.Destination.volume.value = -10;
 
       } catch (error) {
         console.log(error);
