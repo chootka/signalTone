@@ -1,7 +1,7 @@
 <template>
   <p>State: {{ connected }}</p>
   <div>
-    <button @click="startAudio()">Start Audio</button>
+    <!-- <button @click="startAudio()">Start Audio</button> -->
     <h2>Connected clients</h2>
     <ul>
       <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
@@ -67,24 +67,24 @@ export default {
 
   methods: {
     async startAudio() {
-      try {
-        console.log('starting audio')
-        await Tone.start();
+      // try {
+      //   console.log('starting audio')
+      //   await Tone.start();
 
-        // //await Tone.resume();
-        this.toneStarted = true;
-        console.log("tone started");
+      //   // //await Tone.resume();
+      //   this.toneStarted = true;
+      //   console.log("tone started");
 
-        if (!this.testSynth) {
-          this.testSynth = new Tone.Synth().toDestination();
-        }
+      //   if (!this.testSynth) {
+      //     this.testSynth = new Tone.Synth().toDestination();
+      //   }
 
-        this.testSynth.triggerAttack('A4', Tone.now());
-        console.log('test Synth, triggerAttack?', this.testSynth.triggerAttack)
-        //this.testSynth.Destination.volume.value = -10;
+      //   this.testSynth.triggerAttack('A4', Tone.now());
+      //   console.log('test Synth, triggerAttack?', this.testSynth.triggerAttack)
+      //   //this.testSynth.Destination.volume.value = -10;
 
-      } catch (error) {
-        console.log(error);
+      // } catch (error) {
+      //   console.log(error);
       }
     },
     compareArrays(oldArray, newArray) {
