@@ -1,7 +1,8 @@
 <template>
   <p>State: {{ connected }}</p>
   <div>
-    <button @click="startAudio()">Start Audio</button>
+    <button @click="start()">start</button>
+    <button @click="stop()">stop</button>
     <h2>Connected clients</h2>
     <ul>
       <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
@@ -10,7 +11,7 @@
 </template>
 
 <script>
-import * as Tone from "tone";
+import Tone from "tone";
 
 export default {
   name: "ConnectionState",
@@ -18,8 +19,8 @@ export default {
   data() {
 
     return {
-      testSynth: null,
-      toneStarted: false,
+      synth: {},
+      noise: {},
       clients: [],
       notes: ['A4', 'B4', 'C4']
     }
@@ -66,25 +67,32 @@ export default {
   },
 
   methods: {
-    async startAudio() {
-      try {
-        console.log('starting audio')
-        await Tone.start();
-
-        this.toneStarted = true;
-        console.log("tone started");
-
-        if (!this.testSynth) {
-          this.testSynth = new Tone.Synth().toDestination();
-        }
-
-        this.testSynth.triggerAttackRelease('C4', '8n');
-        // this.testSynth.Destination.volume.value = -10;
-
-      } catch (error) {
-        console.log(error);
-      }
+    start() {
+      this.noise = new Tone.Noise("pink");
+      this.noise.start().toMaster();
     },
+    stop() {
+      this.noise.stop();
+    },
+    // async startAudio() {
+    //   try {
+    //     console.log('starting audio')
+    //     await Tone.start();
+
+    //     this.toneStarted = true;
+    //     console.log("tone started");
+
+    //     if (!this.testSynth) {
+    //       this.testSynth = new Tone.Synth().toDestination();
+    //     }
+
+    //     this.testSynth.triggerAttackRelease('C4', '8n');
+    //     // this.testSynth.Destination.volume.value = -10;
+
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
     compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
       const newIPs = new Set(newArray.map(item => item.ip));
@@ -98,6 +106,9 @@ export default {
         hasChanged: added.length > 0 || removed.length > 0
       }
     }
-  }
+  },
+  created() {
+    this.synth = new Tone.FMSynth().toDestination();
+  },
 }
 </script>
