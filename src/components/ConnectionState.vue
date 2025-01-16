@@ -10,13 +10,13 @@
 </template>
 
 <script>
-// import * as Tone from "tone";
-import { Synth } from "tone";
+import * as Tone from "tone";
 
 export default {
   name: "ConnectionState",
 
   data() {
+
     return {
       testSynth: null,
       toneStarted: false,
@@ -67,27 +67,24 @@ export default {
 
   methods: {
     async startAudio() {
-      this.testSynth.triggerAttack("A4");
-      // try {
-      //   console.log('starting audio')
-      //   await Tone.start();
+      try {
+        console.log('starting audio')
+        await Tone.resume();
 
-      //   // //await Tone.resume();
-      //   this.toneStarted = true;
-      //   console.log("tone started");
+        // //await Tone.resume();
+        this.toneStarted = true;
+        console.log("tone started");
 
-      //   if (!this.testSynth) {
-      //     this.testSynth = new Tone.Synth().toDestination();
-      //   }
+        if (!this.testSynth) {
+          this.testSynth = new Tone.Synth().toDestination();
+        }
 
-      //   this.testSynth.triggerAttack('A4', Tone.now());
-      //   console.log('test Synth, triggerAttack?', this.testSynth.triggerAttack)
-      //   //this.testSynth.Destination.volume.value = -10;
+        this.testSynth.triggerAttack('A4', Tone.now());
+        //this.testSynth.Destination.volume.value = -10;
 
-      // } catch (error) {
-      //   console.log(error);
-      // }
-      
+      } catch (error) {
+        console.log(error);
+      }
     },
     compareArrays(oldArray, newArray) {
       const oldIPs = new Set(oldArray.map(item => item.ip));
@@ -102,9 +99,6 @@ export default {
         hasChanged: added.length > 0 || removed.length > 0
       }
     }
-  },
-  created() {
-    this.testSynth = new Synth().toDestination();
-  },
+  }
 }
 </script>
