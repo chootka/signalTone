@@ -1,7 +1,7 @@
 <template>
   <p>State: {{ connected }}</p>
   <div>
-    <button @click.prevent="startAudio()">Start Audio</button>
+    <button @click="startAudio()">Start Audio</button>
     <h2>Connected clients</h2>
     <ul>
       <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
@@ -16,7 +16,7 @@ export default {
   name: "ConnectionState",
 
   data() {
-    
+
     return {
       testSynth: null,
       toneStarted: false,
@@ -67,46 +67,41 @@ export default {
 
   methods: {
     async startAudio() {
-      console.log('starting audio')
       try {
+        console.log('starting audio')
         await Tone.start();
 
-        //await Tone.resume();
+        // //await Tone.resume();
         this.toneStarted = true;
         console.log("tone started");
         console.log("tone started for sure");
 
-        if (this.testSynth) {
-        this.testSynth = new Tone.Synth().toDestination();
-        console.log('prepping something')
-        this.testSynth.triggerAttack('A4', Tone.now());
-        console.log('played something')
-        //c.synth.Destination.volume.value = -10;
-        } else console.log('nada ')
+        // if (this.testSynth) {
+        //   this.testSynth = new Tone.Synth().toDestination();
+        //   console.log('prepping something')
+        //   this.testSynth.triggerAttack('A4', Tone.now());
+        //   console.log('played something')
+        //   //c.synth.Destination.volume.value = -10;
+        // } else {
+        //   console.log('nada ')
+        // }
       } catch (error) {
         console.log(error);
       }
-
     },
-    try {
-      compareArrays(oldArray, newArray) {
-        const oldIPs = new Set(oldArray.map(item => item.ip));
-        const newIPs = new Set(newArray.map(item => item.ip));
+    compareArrays(oldArray, newArray) {
+      const oldIPs = new Set(oldArray.map(item => item.ip));
+      const newIPs = new Set(newArray.map(item => item.ip));
 
-        const added = newArray.filter(item => !oldIPs.has(item.ip));
-        const removed = oldArray.filter(item => !newIPs.has(item.ip));
+      const added = newArray.filter(item => !oldIPs.has(item.ip));
+      const removed = oldArray.filter(item => !newIPs.has(item.ip));
 
-        return {
-          added,
-          removed,
-          hasChanged: added.length > 0 || removed.length > 0
-        }
+      return {
+        added,
+        removed,
+        hasChanged: added.length > 0 || removed.length > 0
       }
-    } catch(error) {
-      console.log(error);
-
     }
-
   }
 }
 </script>
