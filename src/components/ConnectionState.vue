@@ -79,7 +79,7 @@ export default {
           this.testSynth = new Tone.Synth().toDestination();
         }
 
-        // this.testSynth.triggerAttack('A4', Tone.now());
+        this.testSynth.triggerAttack('A4', Tone.now());
         console.log('test Synth, triggerAttack?', this.testSynth.triggerAttack)
         //this.testSynth.Destination.volume.value = -10;
 
