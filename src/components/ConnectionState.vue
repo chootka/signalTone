@@ -173,8 +173,8 @@ export default {
       }
     },
   },
-  mounted() {
-    console.log("p5", p5)
-  }
+  // mounted() {
+  //   console.log("p5", p5)
+  // }
 }
 </script>
