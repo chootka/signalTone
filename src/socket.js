@@ -1,7 +1,16 @@
 import store from "./store"
 import { io } from "socket.io-client";
 
-const URL = "http://jelly.local:5000";
+// get the local URL for development
+const location = window.location.href;
+console.log("location", location);
+const baseUrl = location.split(':')[1];
+console.log("baseURL", baseUrl);
+const devUrl = baseUrl + ':5000';
+console.log("devUrl", devUrl);
+
+// "undefined" means the URL will be computed from the `window.location` object
+const URL = process.env.NODE_ENV === "production" ? undefined : devUrl;
 
 export const socket = io(URL);
 
