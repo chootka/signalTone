@@ -12,7 +12,7 @@
 
 <script>
 import { socket } from "@/socket"
-// import p5 from 'p5'
+import p5 from 'p5'
 
 export default {
   name: "ConnectionState",
@@ -30,9 +30,9 @@ export default {
     clients(newClients) {
       console.log("clients changed:", newClients)
       
-      if (this.audioStarted) {
+      if (this.audioStarted) {``
         // Process active clients
-        for (var i = 0; i < newClients.length; i++) {
+        for (var i = 0; i < newClients.length; i++) { 
           var c = newClients[i];
           const id = c.id
           const rawSignal = Number(c.signal);
@@ -198,8 +198,8 @@ export default {
       }
     },
   },
-  // mounted() {
-  //   console.log("p5", p5)
-  // }
+  mounted() {
+    console.log("p5", p5)
+  }
 }
 </script>
