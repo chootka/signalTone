@@ -47,7 +47,7 @@ export default {
           // const minFrequency = 100; // Adjust for audible range (Hz)
           // const maxFrequency = 2000;
 
-          const frequency = this.map(rawSignal, -100, -30, 100, 2000);
+          const frequency = this.map(rawSignal, -100, -30, 65, 2000);
           //const volume = this.map(rawSignal, -100, -30, -20, 0);
           console.log("raw signal:", rawSignal, "volume (dB):", volume, "frequency (Hz):", frequency);
 
