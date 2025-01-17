@@ -42,12 +42,13 @@ export default {
           const volume = (rawSignal + 100) * (20/70);  // Much louder range
           
           // Map rawSignal to frequency
-          const minSignal = -100; // Adjust based on your rawSignal range
-          const maxSignal = -30;
-          const minFrequency = 100; // Adjust for audible range (Hz)
-          const maxFrequency = 2000;
+          // const minSignal = -100; // Adjust based on your rawSignal range
+          // const maxSignal = -30;
+          // const minFrequency = 100; // Adjust for audible range (Hz)
+          // const maxFrequency = 2000;
 
-          const frequency = map(rawSignal, minSignal, maxSignal, minFrequency, maxFrequency);
+          const frequency = this.map(rawSignal, -100, -30, 100, 2000);
+          //const volume = this.map(rawSignal, -100, -30, -20, 0);
           console.log("raw signal:", rawSignal, "volume (dB):", volume, "frequency (Hz):", frequency);
 
           // Map signal to note index (using original scale for pitch)
@@ -144,6 +145,9 @@ export default {
   },
 
   methods: {
+    map(value, inMin, inMax, outMin, outMax) {
+      return ((value - inMin) / (inMax - inMin)) * (outMax - outMin) + outMin;
+    },
     stop() {
       this.audioStarted = false;
       this.clientSynths.forEach(({synth, lfo}) => {
