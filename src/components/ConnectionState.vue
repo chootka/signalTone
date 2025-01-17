@@ -49,8 +49,7 @@ export default {
 
           if (this.clientSynths.has(id)) {
             try {
-              const { synth, lfo//, reverb 
-              } = this.clientSynths.get(id);
+              const { synth, lfo, reverb } = this.clientSynths.get(id);
               
               // Check if synth is still valid
               if (synth.disposed) {
@@ -68,8 +67,8 @@ export default {
               lfo.amplitude.value = 0.1 + (normalizedVolume * 0.9);
 
               // Update reverb wet value
-              // const wetValue = map(rawSignal, -100, -30, 0.1, 1);
-              // reverb.wet.value = wetValue;
+              const wetValue = map(rawSignal, -100, -30, 0.1, 1);
+              reverb.wet.value = wetValue;
 
             } catch (error) {
               console.log("Error updating synth, recreating:", error);
@@ -94,26 +93,26 @@ export default {
             // Connect LFO to synth's frequency
             lfo.connect(synth.frequency);
 
-            // const reverb = new this.Tone.Reverb({
-            //   decay: 20,
-            //   preDelay: 0.5,
-            // });
+            const reverb = new this.Tone.Reverb({
+              decay: 20,
+              preDelay: 0.5,
+            });
             
-            // synth.connect(reverb);
-            // reverb.toDestination();
+            synth.connect(reverb);
+            reverb.toDestination();
             
             synth.triggerAttack(note, "8n");
             synth.volume.value = volume;
             console.log("Initial synth volume:", synth.volume.value);
 
-            // const wetValue = map(rawSignal, -100, -30, 0.1, 1);
-            // reverb.wet.value = wetValue;
+            const wetValue = map(rawSignal, -100, -30, 0.1, 1);
+            reverb.wet.value = wetValue;
             
             // Store both synth and lfo in a object
             this.clientSynths.set(c.id, {
               synth,
               lfo,
-              // reverb
+              reverb
             });
           }
         }
