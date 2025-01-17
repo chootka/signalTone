@@ -1,8 +1,8 @@
 <template>
   <p>State: {{ connected }}</p>
   <div>
-    <button @click="start">Start Audio</button>
-    <button @click="stop">Stop Audio</button>
+    <button id="startBtn" @click="start">Start Audio</button>
+    <button id="stopBtn" @click="stop">Stop Audio</button>
     <h2>Connected clients</h2>
     <ul>
       <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
@@ -12,6 +12,7 @@
 
 <script>
 import { socket } from "@/socket"
+import p5 from 'p5'
 
 export default {
   name: "ConnectionState",
@@ -48,7 +49,7 @@ export default {
 
           if (this.clientSynths.has(id)) {
             try {
-              const { synth, lfo } = this.clientSynths.get(id);
+              const { synth, lfo, reverb } = this.clientSynths.get(id);
               
               // Check if synth is still valid
               if (synth.disposed) {
@@ -64,6 +65,9 @@ export default {
               const normalizedVolume = Math.min(Math.max((volume + 20) / 20, 0), 1);
               lfo.frequency.value = 1 + (normalizedVolume * 10);
               lfo.amplitude.value = 0.1 + (normalizedVolume * 0.9);
+
+              reverb.wet.value = map(rawSignal, 0, rawSignal, 0.1, 1)
+
             } catch (error) {
               console.log("Error updating synth, recreating:", error);
               // Remove invalid synth
@@ -90,11 +94,20 @@ export default {
             synth.triggerAttack(note, "8n");
             synth.volume.value = volume;
             console.log("Initial synth volume:", synth.volume.value);
+
+            const reverb = new this.Tone.Reverb({
+              decay: 20,
+              preDelay: 0.5,
+              wet: 1,
+            });
+            reverb.wet.value = map(rawSignal, 0, rawSignal, 0.1, 1)
+            reverb.connect(synth);
             
             // Store both synth and lfo in a object
             this.clientSynths.set(c.id, {
               synth,
-              lfo
+              lfo,
+              reverb
             });
           }
         }
@@ -159,6 +172,9 @@ export default {
         console.error('Failed to start Tone.js:', error)
       }
     },
+  },
+  mounted() {
+    console.log("p5", p5)
   }
 }
 </script>
