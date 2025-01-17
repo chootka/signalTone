@@ -114,6 +114,7 @@ export default {
             // synth.connect(reverb);
             // reverb.toDestination();
             synth.frequency.value = frequency;
+            console.log(synth.frequency.value);
             
             synth.triggerAttack(note, "8n");
             synth.volume.value = volume;
