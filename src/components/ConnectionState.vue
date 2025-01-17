@@ -41,6 +41,15 @@ export default {
           // Map signal range (typically -100 to -30) to volume range (-20dB to 0dB)
           const volume = (rawSignal + 100) * (20/70);  // Much louder range
           
+          // Map rawSignal to frequency
+          const minSignal = -100; // Adjust based on your rawSignal range
+          const maxSignal = -30;
+          const minFrequency = 100; // Adjust for audible range (Hz)
+          const maxFrequency = 2000;
+
+          const frequency = map(rawSignal, minSignal, maxSignal, minFrequency, maxFrequency);
+          console.log("raw signal:", rawSignal, "volume (dB):", volume, "frequency (Hz):", frequency);
+
           // Map signal to note index (using original scale for pitch)
           const noteIndex = Math.abs(Math.floor(rawSignal/10)) % this.notes.length;
 
@@ -59,7 +68,9 @@ export default {
               }
 
               synth.volume.value = volume;
-              console.log("Updated synth volume:", synth.volume.value);
+              synth.frequency.value = frequency;
+              //console.log("Updated synth volume:", synth.volume.value);
+              console.log(`Updated synth for client ${id}: Volume = ${volume}, Frequency = ${frequency}`);
               
               // Update LFO parameters based on volume
               // Ensure normalizedVolume stays between 0 and 1
@@ -101,10 +112,12 @@ export default {
             
             // synth.connect(reverb);
             // reverb.toDestination();
+            synth.frequency.value = frequency;
             
             synth.triggerAttack(note, "8n");
             synth.volume.value = volume;
-            console.log("Initial synth volume:", synth.volume.value);
+            //console.log("Initial synth volume:", synth.volume.value);
+            console.log(`New synth for client ${id}: Frequency = ${frequency}, Volume = ${volume}`);
 
             // const wetValue = map(rawSignal, -100, -30, 0.1, 1);
             // reverb.wet.value = wetValue;
