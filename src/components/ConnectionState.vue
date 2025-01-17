@@ -66,7 +66,9 @@ export default {
               lfo.frequency.value = 1 + (normalizedVolume * 10);
               lfo.amplitude.value = 0.1 + (normalizedVolume * 0.9);
 
-              reverb.wet.value = map(rawSignal, 0, rawSignal, 0.1, 1)
+              // Update reverb wet value
+              const wetValue = map(rawSignal, -100, -30, 0.1, 1);
+              reverb.wet.value = wetValue;
 
             } catch (error) {
               console.log("Error updating synth, recreating:", error);
@@ -90,18 +92,21 @@ export default {
             
             // Connect LFO to synth's frequency
             lfo.connect(synth.frequency);
+
+            const reverb = new this.Tone.Reverb({
+              decay: 20,
+              preDelay: 0.5,
+            });
+            
+            synth.connect(reverb);
+            reverb.toDestination();
             
             synth.triggerAttack(note, "8n");
             synth.volume.value = volume;
             console.log("Initial synth volume:", synth.volume.value);
 
-            const reverb = new this.Tone.Reverb({
-              decay: 20,
-              preDelay: 0.5,
-              wet: 1,
-            });
-            reverb.wet.value = map(rawSignal, 0, rawSignal, 0.1, 1)
-            reverb.connect(synth);
+            const wetValue = map(rawSignal, -100, -30, 0.1, 1);
+            reverb.wet.value = wetValue;
             
             // Store both synth and lfo in a object
             this.clientSynths.set(c.id, {
