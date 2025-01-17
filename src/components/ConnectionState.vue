@@ -39,7 +39,10 @@ export default {
           
           // Convert signal to decibels (dB)
           // Map signal range (typically -100 to -30) to volume range (-20dB to 0dB)
-          const volume = (rawSignal + 100) * (20/70);  // Much louder range
+          // const volume = (rawSignal + 100) * (20/70);  // Much louder range
+          const maxVolumeBoost = 5; // Max extra dB at strongest signal
+          const volume = this.map(rawSignal, -100, -30, -20, 0) + 
+                         this.map(rawSignal, -50, -30, 0, maxVolumeBoost);
           
           // Map rawSignal to frequency
           // const minSignal = -100; // Adjust based on your rawSignal range
