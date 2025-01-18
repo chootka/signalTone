@@ -7,6 +7,7 @@
     <ul>
       <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
     </ul>
+    <div id="p5-container"></div>
   </div>
 </template>
 
@@ -198,8 +199,25 @@ export default {
       }
     },
   },
+
   mounted() {
-    console.log("p5", p5)
-  }
+  const sketch = (p) => {
+    p.setup = function () {
+      p.createCanvas(400, 400); // Create a 400x400 canvas
+      p.background(200);       // Set the initial background color
+    };
+
+    p.draw = function () {
+      p.fill(0);               // Set the fill color
+      p.ellipse(p.mouseX, p.mouseY, 50, 50); // Draw an ellipse following the mouse
+    };
+  };
+
+  // Create a new p5 instance and attach it to the container
+  this.p5Instance = new p5(sketch, 'p5-container');
+}
+
+
+
 }
 </script>
