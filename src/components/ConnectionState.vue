@@ -24,16 +24,10 @@
       </ul>
     </div>
 
-    <!-- Right section with canvas and QR code -->
-    <div class="right-section">
-      <div id="p5-container"></div>
-      <div class="qr-code">
-        <img src="public/qr-code.png" alt="QR Code" />
-      </div>
-    </div>
+    <!-- Right section for the p5 canvas -->
+    <div id="p5-container" class="right-section"></div>
   </div>
 </template>
-
 
 
 <script>
