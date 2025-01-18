@@ -230,16 +230,22 @@ export default {
     };
 
     p.draw = function () {
-      //p.background(128, 128, 128, 50); // Semi-transparent background for trails
+      p.background(128, 128, 128, 20); // Semi-transparent background for trails
 
       // Draw a circle for each client based on their signal strength
       for (const [id, data] of clientData) {
         p.fill(data.color); // Use the stored random color for the client
-        const x = p.map(data.signal, -100, -30, 0, p.width); // Map signal strength to horizontal position
+
+        // Map signal to x position (allow circles to appear closer to the left)
+        const x = p.map(data.signal, -100, -30, 50, p.width - 50); // Avoid extreme right/left edges
+
+        // Use the pre-calculated volume if needed elsewhere, but not here
         const y = data.y; // Fixed random y position for each client
+
         p.ellipse(x, y, 50, 50); // Draw the circle
       }
     };
+
 
     // Watch for changes in the `clients` list.
     this.$watch(
