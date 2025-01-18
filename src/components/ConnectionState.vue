@@ -207,12 +207,12 @@ export default {
 
     p.setup = function () {
       p.createCanvas(800, 800);
-      p.background('grey');
+     // p.background('grey');
     };
 
     p.draw = function () {
       // Draw a translucent background to create a fading trail effect
-      p.background(128, 128, 128, 50); // Fourth parameter (alpha) controls transparency
+      //p.background(128, 128, 128, 50); // Fourth parameter (alpha) controls transparency
 
       // Draw a circle for each client based on their signal strength
       for (const [id, data] of clientData) {
