@@ -200,7 +200,7 @@ export default {
     },
   },
 
-  
+
   mounted() {
   const sketch = (p) => {
     let clientData = new Map(); // Map to store client data: color and signal-based y-position.
@@ -221,8 +221,6 @@ export default {
         p.ellipse(x, y, 50, 50); // Draw the circle.
       }
     };
-
-    this.p5Instance = new p5(sketch, 'p5-container');
 
     // Watch for changes in the `clients` list.
     this.$watch(
@@ -256,7 +254,13 @@ export default {
       { immediate: true } // Ensure the watcher triggers immediately on mount.
     );
   };
+
+  // Use $nextTick to ensure the DOM is fully rendered before creating the p5 instance.
+  this.$nextTick(() => {
+    this.p5Instance = new p5(sketch, 'p5-container');
+  });
 }
+
 
 
 }
