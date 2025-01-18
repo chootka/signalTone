@@ -200,22 +200,64 @@ export default {
     },
   },
 
+  
   mounted() {
-    const sketch = (p) => {
+  const sketch = (p) => {
+    let clientData = new Map(); // Map to store client data: color and signal-based y-position.
+
     p.setup = function () {
-      p.createCanvas(800, 600); 
-      p.background('lightgreen');
+      p.createCanvas(800, 800);
+      p.background('grey');
     };
 
     p.draw = function () {
-      p.fill(0);
-      p.ellipse(p.mouseX, p.mouseY, 25, 25);
-    };
-  };
+      p.background('grey'); // Clear canvas each frame.
 
-  //create a new p5 instance and attach it to the container - chatgpt generated
-  this.p5Instance = new p5(sketch, 'p5-container');
+      // Draw a circle for each client based on their signal strength.
+      for (const [id, data] of clientData) {
+        p.fill(data.color); // Use the stored random color for the client.
+        const x = data.x; // Fixed x position for each client.
+        const y = p.map(data.signal, -100, -30, p.height, 0); // Map signal strength to vertical position.
+        p.ellipse(x, y, 50, 50); // Draw the circle.
+      }
+    };
+
+    this.p5Instance = new p5(sketch, 'p5-container');
+
+    // Watch for changes in the `clients` list.
+    this.$watch(
+      'clients',
+      (newClients) => {
+        // Update or add clients in the `clientData` map.
+        newClients.forEach((client, index) => {
+          const id = client.id;
+          const signal = Number(client.signal);
+
+          if (!clientData.has(id)) {
+            // Assign a random color and fixed x position for new clients.
+            const color = p.color(p.random(255), p.random(255), p.random(255));
+            const x = (index + 1) * (p.width / (newClients.length + 1)); // Distribute x positions evenly.
+
+            clientData.set(id, { color, x, signal });
+          } else {
+            // Update the signal value for existing clients.
+            clientData.get(id).signal = signal;
+          }
+        });
+
+        // Remove disconnected clients from the `clientData` map.
+        const newClientIds = newClients.map((client) => client.id);
+        for (const id of clientData.keys()) {
+          if (!newClientIds.includes(id)) {
+            clientData.delete(id);
+          }
+        }
+      },
+      { immediate: true } // Ensure the watcher triggers immediately on mount.
+    );
+  };
 }
+
 
 }
 </script>
