@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <p>State: {{ connected }}</p>
   <div>
     <button id="startBtn" @click="start">Start Audio</button>
@@ -9,7 +9,26 @@
     </ul>
     <div id="p5-container"></div>
   </div>
+</template> -->
+
+<template>
+  <div class="connection-state">
+    <!-- Left section for controls -->
+    <div class="left-section">
+      <p>State: {{ connected }}</p>
+      <button id="startBtn" @click="start">Start Audio</button>
+      <button id="stopBtn" @click="stop">Stop Audio</button>
+      <h2>Connected clients</h2>
+      <ul>
+        <li v-for="client in clients" :key="client.id">{{ client.signal }}</li>
+      </ul>
+    </div>
+
+    <!-- Right section for the p5 canvas -->
+    <div id="p5-container" class="right-section"></div>
+  </div>
 </template>
+
 
 <script>
 import { socket } from "@/socket"
@@ -206,7 +225,7 @@ export default {
     let clientData = new Map(); // Map to store client data: color and signal-based y-position.
 
     p.setup = function () {
-      p.createCanvas(800, 800);
+      p.createCanvas(800, 400);
       p.noStroke(); // Remove all strokes
     };
 
