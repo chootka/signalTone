@@ -28,7 +28,7 @@
     <div class="right-section">
       <div id="p5-container"></div>
       <div class="qr-code">
-        <img src="/qr-code.png" alt="QR Code" />
+        <img src="public/qr-code.png" alt="QR Code" />
       </div>
     </div>
   </div>
