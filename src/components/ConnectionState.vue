@@ -211,7 +211,7 @@ export default {
     };
 
     p.draw = function () {
-      p.background(128, 128, 128, 50); // Semi-transparent background for trails
+      //p.background(128, 128, 128, 50); // Semi-transparent background for trails
 
       // Draw a circle for each client based on their signal strength
       for (const [id, data] of clientData) {
