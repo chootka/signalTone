@@ -207,18 +207,17 @@ export default {
 
     p.setup = function () {
       p.createCanvas(800, 800);
-     // p.background('grey');
+      p.noStroke(); // Remove all strokes
     };
 
     p.draw = function () {
-      // Draw a translucent background to create a fading trail effect
-      //p.background(128, 128, 128, 50); // Fourth parameter (alpha) controls transparency
+      p.background(128, 128, 128, 50); // Semi-transparent background for trails
 
       // Draw a circle for each client based on their signal strength
       for (const [id, data] of clientData) {
         p.fill(data.color); // Use the stored random color for the client
-        const x = data.x; // Fixed x position for each client
-        const y = p.map(data.signal, -100, -30, p.height, 0); // Map signal strength to vertical position
+        const x = p.map(data.signal, -100, -30, 0, p.width); // Map signal strength to horizontal position
+        const y = data.y; // Fixed random y position for each client
         p.ellipse(x, y, 50, 50); // Draw the circle
       }
     };
@@ -233,13 +232,12 @@ export default {
           const signal = Number(client.signal);
 
           if (!clientData.has(id)) {
-            // Assign a random color and fixed x position for new clients.
+            // Assign a random color, random y position, and initialize x position
             const color = p.color(p.random(255), p.random(255), p.random(255));
-            const x = (index + 1) * (p.width / (newClients.length + 1)); // Distribute x positions evenly.
-
-            clientData.set(id, { color, x, signal });
+            const y = p.random(p.height); // Random y position
+            clientData.set(id, { color, y, signal });
           } else {
-            // Update the signal value for existing clients.
+            // Update the signal value for existing clients
             clientData.get(id).signal = signal;
           }
         });
@@ -261,6 +259,7 @@ export default {
     this.p5Instance = new p5(sketch, 'p5-container');
   });
 }
+
 
 
 
