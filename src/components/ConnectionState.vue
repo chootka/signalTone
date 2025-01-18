@@ -201,23 +201,21 @@ export default {
   },
 
   mounted() {
-  const sketch = (p) => {
+    const sketch = (p) => {
     p.setup = function () {
-      p.createCanvas(400, 400); // Create a 400x400 canvas
-      p.background(200);       // Set the initial background color
+      p.createCanvas(800, 600); 
+      p.background('lightgreen');
     };
 
     p.draw = function () {
-      p.fill(0);               // Set the fill color
-      p.ellipse(p.mouseX, p.mouseY, 50, 50); // Draw an ellipse following the mouse
+      p.fill(0);
+      p.ellipse(p.mouseX, p.mouseY, 25, 25);
     };
   };
 
-  // Create a new p5 instance and attach it to the container
+  //create a new p5 instance and attach it to the container - chatgpt generated
   this.p5Instance = new p5(sketch, 'p5-container');
 }
-
-
 
 }
 </script>
