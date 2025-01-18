@@ -211,14 +211,15 @@ export default {
     };
 
     p.draw = function () {
-      p.background('grey'); // Clear canvas each frame.
+      // Draw a translucent background to create a fading trail effect
+      p.background(128, 128, 128, 50); // Fourth parameter (alpha) controls transparency
 
-      // Draw a circle for each client based on their signal strength.
+      // Draw a circle for each client based on their signal strength
       for (const [id, data] of clientData) {
-        p.fill(data.color); // Use the stored random color for the client.
-        const x = data.x; // Fixed x position for each client.
-        const y = p.map(data.signal, -100, -30, p.height, 0); // Map signal strength to vertical position.
-        p.ellipse(x, y, 50, 50); // Draw the circle.
+        p.fill(data.color); // Use the stored random color for the client
+        const x = data.x; // Fixed x position for each client
+        const y = p.map(data.signal, -100, -30, p.height, 0); // Map signal strength to vertical position
+        p.ellipse(x, y, 50, 50); // Draw the circle
       }
     };
 
